@@ -18,13 +18,20 @@ fi
 
 touch $LOG_PATH
 
+function getTopCpuProcess(){
+	echo $(ps -eo pcpu,args --sort=-%cpu | head -2)
+}
+
 function logFile(){
- local function_name="${FUNCNAME[1]}"
-    local cpu="$1"
+	local cpu="$1"
 	local gpu="$2"
     timeAndDate=`date`
     echo "[$timeAndDate] [CPU]  $cpuºC" >> $LOG_PATH
 	echo "[$timeAndDate] [GPU]  $gpuºC" >> $LOG_PATH
+}
+
+function getCPUprocess(){
+	echo $(ps -eo pcpu,args --sort=-%cpu | head -2)
 }
 
 while true
