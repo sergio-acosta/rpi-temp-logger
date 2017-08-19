@@ -43,7 +43,7 @@ function main(){
 		# Write info to the log file
 		logFile $cpuTempF $gpuTemp
 		# Get log file size and delete it if neccesary
-		fileSize=`wc -c <"$LOG_PATH"`
+		fileSize=$(wc -c <"$LOG_PATH")
 		if [ $fileSize -ge $MAX_LOG_SIZE ]; then
 			rm $LOG_PATH
 			touch $LOG_PATH
@@ -54,12 +54,12 @@ function main(){
 	done
 }
 
-if [ "$#" -ne 1 ]; then
-    echo "Illegal number of parameters"
-	exit
-else
+#if [ "$#" -ne 1 ]; then
+#   echo "Illegal number of parameters"
+#	exit
+#else
 	main
-fi
+#fi
 
 # TO-DO
 
