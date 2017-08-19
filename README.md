@@ -35,7 +35,8 @@ tail -n15 /var/log/tempmonitor.log
 # Flags
 Flags are currently in development.
 
-| Flag | description |
-| -c | Disables internal timer. Useful for adding the script to crontab |
-| -p | Adds to the log file the most CPU consumming process.
-| -t | Changes default time value
+| Flag | Purpose                                               |
+|------|-------------------------------------------------------|
+| -c   | Disables internal timer (for long-term crontab usage) |
+| -p   | Adds to the log file the most CPU consumming process. |
+|      |                                                       |
