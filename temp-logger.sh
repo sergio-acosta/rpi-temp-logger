@@ -6,14 +6,6 @@ LOG_PATH=/var/log/tempmonitor.log
 TIME_PERIOD=2100
 MAX_LOG_SIZE=1000000 
 
-if [ "$#" -ne 1 ]; then
-    echo "Illegal number of parameters"
-	exit
-else
-	main
-fi
-
-
 function getTopCpuProcess(){
 	echo $(ps -eo pcpu,args --sort=-%cpu | head -2)
 }
@@ -24,11 +16,10 @@ function logFile(){
     timeAndDate=`date`
     echo "[$timeAndDate] [CPU]  $cpuºC" >> $LOG_PATH
 	echo "[$timeAndDate] [GPU]  $gpuºC" >> $LOG_PATH
+	echo "[$timeAndDate] [Current top process info]" >> $LOG_PATH
+	echo $(getTopCpuProcess) >> $LOG_PATH
 }
 
-function getCPUprocess(){
-	echo $(ps -eo pcpu,args --sort=-%cpu | head -2)
-}
 
 function main(){
 	
@@ -48,7 +39,7 @@ function main(){
 		gpuTemp=$(/opt/vc/bin/vcgencmd measure_temp | cut -c6-9)
 		
 		# CPU temperature formatting
-		cpuTempF=$(cut -c1-2 <<< $cpuTemp`.`cut -c3 <<< $cpuTemp)
+		cpuTempF=`cut -c1-2 <<< $cpuTemp`.`cut -c3 <<< $cpuTemp`
 		# Write info to the log file
 		logFile $cpuTempF $gpuTemp
 		# Get log file size and delete it if neccesary
@@ -62,6 +53,13 @@ function main(){
 		sleep $TIME_PERIOD
 	done
 }
+
+if [ "$#" -ne 1 ]; then
+    echo "Illegal number of parameters"
+	exit
+else
+	main
+fi
 
 # TO-DO
 
