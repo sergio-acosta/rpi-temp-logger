@@ -19,8 +19,8 @@ There are three constants declared in the shell script:
 `TIME_PERIOD`: the time in seconds you want to do the temperature check.
 `MAX_LOG_SIZE`: max log size in bytes. When reached, the script will delete previous log file and start a new one.
 
-# Usage
-To run the script in the background use `nohup`
+# Usage to monitor for a short period of time
+You can run the script in the background using `nohup` and then press `CTRL`+`C` to stop it. 
 ```
 nohup ./temp-logger.sh
 ```
@@ -32,3 +32,10 @@ or you can use `tail` to read the last 15 lines:
 ```
 tail -n15 /var/log/tempmonitor.log
 ```
+# Flags
+Flags are currently in development.
+
+| Flag | description |
+| -c | Disables internal timer. Useful for adding the script to crontab |
+| -p | Adds to the log file the most CPU consumming process.
+| -t | Changes default time value
