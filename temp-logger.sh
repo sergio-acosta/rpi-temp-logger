@@ -16,8 +16,8 @@ function logFile(){
 	timeAndDate=`date`
 	echo "[$timeAndDate] [CPU]  $cpuºC" >> $LOG_PATH
 	echo "[$timeAndDate] [GPU]  $gpuºC" >> $LOG_PATH
-	echo "[$timeAndDate] [Current top process info]" >> $LOG_PATH
-	echo $(getTopCpuProcess) >> $LOG_PATH
+	# echo "[$timeAndDate] [Current top process info]" >> $LOG_PATH
+	# echo $(getTopCpuProcess) >> $LOG_PATH
 }
 
 
@@ -62,7 +62,9 @@ function main(){
 #fi
 
 # TO-DO
-
+# Pending: implement -c flag
+# Pending: implement -p flag
+# Pending: implement -r option
 
 
 
