@@ -2,9 +2,6 @@
 # rpi-temp-logger
 This scripts reads temperature from two of the Raspberry Pi temperature sensors and writes this information to a -custom- log file. The idea is to run it in the background to analyze the performance of a cooling method, or to check the scope of an overclooking setup.
 
-## Accuracy
-This method has one decimal place accuracy.
-
 # Installation
 ## Monitor in the background with internal timer
 First download the script, make it executable and then run it in the background using `nohup` 
