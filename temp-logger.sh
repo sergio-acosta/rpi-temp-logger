@@ -13,8 +13,8 @@ function getTopCpuProcess(){
 function logFile(){
 	local cpu="$1"
 	local gpu="$2"
-    timeAndDate=`date`
-    echo "[$timeAndDate] [CPU]  $cpuºC" >> $LOG_PATH
+	timeAndDate=`date`
+	echo "[$timeAndDate] [CPU]  $cpuºC" >> $LOG_PATH
 	echo "[$timeAndDate] [GPU]  $gpuºC" >> $LOG_PATH
 	echo "[$timeAndDate] [Current top process info]" >> $LOG_PATH
 	echo $(getTopCpuProcess) >> $LOG_PATH
@@ -24,17 +24,17 @@ function logFile(){
 function main(){
 	
 	if [ -e "$LOG_PATH" ]; then
-	    read -p "Log file exists. Continue? [y/n]?" -n 1 -r
+		read -p "Log file exists. Continue? [y/n]?" -n 1 -r
 		echo    # Move to a new line
 			if [[ ! $REPLY =~ ^[Yy]$ ]]; then
 				[[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 
 			fi
-	else 
+	else
 	    touch $LOG_PATH
-	fi 
+	fi
 	
 	while true
-	do 
+	do
 		cpuTemp=$(cat /sys/class/thermal/thermal_zone0/temp)
 		gpuTemp=$(/opt/vc/bin/vcgencmd measure_temp | cut -c6-9)
 		
