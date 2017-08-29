@@ -23,8 +23,9 @@ function logFile(){
 
 function main(){
 	
+	# Checks if the log file already exists with 10 sec timeout
 	if [ -e "$LOG_PATH" ]; then
-		read -p "Log file exists. Continue? [y/n]?" -n 1 -r
+		read -t 10 -p "Log file exists. Continue? [y/n]?" -n 1 -r
 		echo    # Move to a new line
 			if [[ ! $REPLY =~ ^[Yy]$ ]]; then
 				[[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 
@@ -39,7 +40,7 @@ function main(){
 		gpuTemp=$(/opt/vc/bin/vcgencmd measure_temp | cut -c6-9)
 		
 		# CPU temperature formatting
-		cpuTempF=`cut -c1-2 <<< $cpuTemp`.`cut -c3 <<< $cpuTemp`
+		cpuTempF=$(cut -c1-2 <<< $cpuTemp).$(cut -c3 <<< $cpuTemp)
 		# Write info to the log file
 		logFile $cpuTempF $gpuTemp
 		# Get log file size and delete it if neccesary
