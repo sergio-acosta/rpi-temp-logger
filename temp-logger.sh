@@ -6,6 +6,10 @@ LOG_PATH=/var/log/tempmonitor.log
 TIME_PERIOD=2100
 MAX_LOG_SIZE=1000000 
 
+function usage(){
+	echo "Usage: $0 [options]" 1>&2; exit 1;
+}
+
 function getTopCpuProcess(){
 	echo $(ps -eo pcpu,args --sort=-%cpu | head -2)
 }
@@ -23,16 +27,16 @@ function logFile(){
 
 function main(){
 	
-	# Checks if the log file already exists with 10 sec timeout
-	if [ -e "$LOG_PATH" ]; then
-		read -t 10 -p "Log file exists. Continue? [y/n]?" -n 1 -r
-		echo    # Move to a new line
-			if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-				[[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 
-			fi
-	else
-	    touch $LOG_PATH
-	fi
+		# Checks if the log file already exists with 10 sec timeout
+		if [ -e "$LOG_PATH" ]; then
+			read -t 10 -p "Log file exists. Continue? [y/n]?" -n 1 -r
+			echo    # Move to a new line
+				if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+					[[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 
+				fi
+		else
+			touch $LOG_PATH
+		fi
 	
 	while true
 	do
