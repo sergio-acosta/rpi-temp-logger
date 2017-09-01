@@ -6,7 +6,8 @@ readonly LOG_PATH=/var/log/tempmonitor.log
 readonly TIME_PERIOD=2100
 readonly MAX_LOG_SIZE=1000000 
 
-local logCpu=false
+# Global variables
+logCpu=false
 
 function usage(){
 	echo "Usage: $0 [options]"
@@ -64,7 +65,7 @@ function main(){
 	done
 }
 
-if [ "$#" gt 2 ]; then
+if [ "$#" -gt 2 ]; then
 	echo "Illegal number of parameters"
 	exit 1
 fi
