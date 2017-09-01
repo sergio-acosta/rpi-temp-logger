@@ -86,7 +86,7 @@ do
     		echo "-c was triggered!"
 			;;
 		p)
-			echo "\nCPU usage log enabled\n"
+			echo -e "\nCPU usage log enabled!\n"
 			logCpu=true
 			main
 			;;
