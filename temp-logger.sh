@@ -7,7 +7,7 @@ TIME_PERIOD=2100
 MAX_LOG_SIZE=1000000 
 
 function usage(){
-	echo "Usage: $0 [options]" 1>&2; exit 1;
+	echo "Usage: $0 [options]"
 }
 
 function getTopCpuProcess(){
@@ -66,20 +66,25 @@ if [ "$#" gt 2 ]; then
 fi
 
 
-while getopts ":cpr" opt; 
+while getopts ":hrcp" opt; 
 do
 	case $opt in
+		h)
+			usage
+			exit 0
+			;;
+		r)
+			cat $LOG_PATH
+			exit 0
+			;;
     	c)
     		echo "-c was triggered!"
     		;;
 		p)
 			echo "-p was triggered!"
 			;;
-		r)
-			cat $LOG_PATH
-			exit 0
-			;;
-    	\?)
+		
+		\?)
       		echo "Illegal option: -$OPTARG\nType -h for more help.\n" >&2
 			exit 1
       	  	;;
@@ -89,7 +94,7 @@ done
 # TO-DO
 # Pending: implement -c flag
 # Pending: implement -p flag
-# Pending: implement -r option
+# Add help text (usage function)
 
 
 
