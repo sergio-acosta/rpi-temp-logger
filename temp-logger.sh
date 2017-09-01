@@ -23,7 +23,7 @@ function logFile(){
 	timeAndDate=$(date)
 	echo "[$timeAndDate] [CPU]  $cpuºC" >> $LOG_PATH
 	echo "[$timeAndDate] [GPU]  $gpuºC" >> $LOG_PATH
-	if [ logCpu = true ]; then
+	if [ logCpu ]; then
 		echo "[$timeAndDate] [Current top process info]" >> $LOG_PATH
 		echo $(getTopCpuProcess) >> $LOG_PATH
 		echo "LogCPU true"
