@@ -1,10 +1,12 @@
 #!/bin/bash
 
 # Constants
-# 2100 s = 35 m / 1000000 b = 1 mb
-LOG_PATH=/var/log/tempmonitor.log
-TIME_PERIOD=2100
-MAX_LOG_SIZE=1000000 
+# Note that 2100 s = 35 m / 1000000 b = 1 mb
+readonly LOG_PATH=/var/log/tempmonitor.log
+readonly TIME_PERIOD=2100
+readonly MAX_LOG_SIZE=1000000 
+
+local logCpu=false
 
 function usage(){
 	echo "Usage: $0 [options]"
@@ -29,9 +31,9 @@ function main(){
 	
 	# Checks if the log file already exists with 10 sec timeout
 	if [ -e "$LOG_PATH" ]; then
-		read -t 10 -p "Log file exists. Continue? [y/n]?" -n 1 -r
+		read -t 10 -p "Log file exists. Continue? [Y/n]?" -n 1 -r
 		echo    # Move to a new line
-			if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+			if [[ $REPLY =~ ^[Nn]$ ]]; then
 				[[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 
 			fi
 	else
@@ -79,9 +81,11 @@ do
 			;;
     	c)
     		echo "-c was triggered!"
-    		;;
+			;;
 		p)
-			echo "-p was triggered!"
+			echo "\nCPU usage log enabled\n"
+			logCpu=true
+			main
 			;;
 		
 		\?)
