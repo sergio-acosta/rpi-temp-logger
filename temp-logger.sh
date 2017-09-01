@@ -102,6 +102,7 @@ done
 # Pending: implement -c flag
 # Pending: implement -p flag
 # Add help text (usage function)
+# Resolve other issues
 
 
 
