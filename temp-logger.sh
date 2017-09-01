@@ -26,6 +26,7 @@ function logFile(){
 	if [ logCpu = true ]; then
 		echo "[$timeAndDate] [Current top process info]" >> $LOG_PATH
 		echo $(getTopCpuProcess) >> $LOG_PATH
+		echo "LogCPU true"
 	fi
 }
 
@@ -92,7 +93,7 @@ do
 			;;
 		
 		\?)
-      		echo "Illegal option: -$OPTARG\nType -h for more help.\n" >&2
+      		echo -e "Illegal option: -$OPTARG\nType -h for more help.\n" >&2
 			exit 1
       	  	;;
   	esac
