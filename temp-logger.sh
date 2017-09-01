@@ -63,8 +63,25 @@ function main(){
 #   echo "Illegal number of parameters"
 #	exit
 #else
-	main
+#main
 #fi
+
+while getopts ":cpr" opt; do
+  case $opt in
+    c)
+    	echo "-c was triggered!" >&2
+    	;;
+	p)
+		echo "-p was triggered!" >&2
+		;;
+	r)
+		echo "-r was triggered!" >&2
+		;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      ;;
+  esac
+done
 
 # TO-DO
 # Pending: implement -c flag
