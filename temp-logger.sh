@@ -8,6 +8,7 @@ readonly MAX_LOG_SIZE=1000000
 
 # Global variables
 logCpu=false
+runOnce=false
 
 function usage(){
 	echo "Usage: $0 [options]"
@@ -23,10 +24,9 @@ function logFile(){
 	timeAndDate=$(date)
 	echo "[$timeAndDate] [CPU]  $cpuºC" >> $LOG_PATH
 	echo "[$timeAndDate] [GPU]  $gpuºC" >> $LOG_PATH
-	if [ $logCpu ]; then
-		echo "[$timeAndDate] [Current top process info]" >> $LOG_PATH
+	if [ $logCpu = "true" ]; then
+		echo "[$timeAndDate] [Current top process]" >> $LOG_PATH
 		echo $(getTopCpuProcess) >> $LOG_PATH
-		echo "LogCPU true"
 	fi
 }
 
@@ -62,12 +62,16 @@ function main(){
 		fi
 		
 		# Wait TIME_PERIOD or exit
-		sleep $TIME_PERIOD
+		if [ $runOnce = "false" ]; then
+			sleep $TIME_PERIOD
+		else
+			exit 0
+		fi
 	done
 }
 
-if [ "$#" -gt 2 ]; then
-	echo "Illegal number of parameters"
+if [ "$#" -gt 1 ]; then
+	echo -e "Illegal number of parameters: $#\nType -h for more help.\n" >&2
 	exit 1
 fi
 
@@ -83,15 +87,15 @@ do
 			cat $LOG_PATH
 			exit 0
 			;;
-    	c)
-    		echo "-c was triggered!"
+		c)
+    		runOnce=true
+			# main
 			;;
 		p)
-			echo -e "\nCPU usage log enabled!\n"
+			echo -e "CPU usage log enabled!\n"
 			logCpu=true
-			main
+			# main
 			;;
-		
 		\?)
       		echo -e "Illegal option: -$OPTARG\nType -h for more help.\n" >&2
 			exit 1
@@ -99,11 +103,11 @@ do
   	esac
 done
 
+main
+
 # TO-DO
-# Pending: implement -c flag
-# Pending: implement -p flag
 # Add help text (usage function)
-# Resolve other issues
+# Resolve minor issues 
 
 
 
