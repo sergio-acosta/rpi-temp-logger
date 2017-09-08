@@ -2,6 +2,8 @@
 # rpi-temp-logger
 This scripts reads temperature from two of the Raspberry Pi temperature sensors and writes this information to a -custom- log file. The idea is to run it in the background to analyze the performance of a cooling method, or to check the scope of an overclooking setup.
 
+This script can also log the the most CPU-intensive process (see below)
+
 # Installation
 ## Monitor in the background with internal timer
 First download the script, make it executable and then run it in the background using `nohup` 
@@ -32,23 +34,24 @@ Then you should add a line like this (example, to save a log every min). Remembe
 ## Customization
 There are three constants declared in the shell script:
 `LOG_PATH`: the place where you want to store the log file.
-`TIME_PERIOD`: the time in seconds you want to do the temperature check. (is disabled when using `-c` flag)
+`TIME_PERIOD`: the time in seconds you want to do the temperature check. (is disabled when using `-c` option)
 `MAX_LOG_SIZE`: max log size in bytes. When reached, the script will delete previous log file and start a new one.
 
-## Usage to monitor for a short period of time
-To read the information of the logger you can show the entire file on screen
+## Recovering the information
+To read the information of the logger you can use the -r option
 ```
-cat /var/log/tempmonitor.log
+./temp-logger.sh -r
 ```
-or you can use `tail` to read the last 15 lines:
+or directly accessing the file, you can use `cat` or better, `tail` -to read the last 15 lines:
 ```
 tail -n15 /var/log/tempmonitor.log
 ```
-# Flags
-Flags are currently in development.
+# Options
 
-| Flag | Purpose                                               |
+
+| Arg. | Purpose                                               |
 |------|-------------------------------------------------------|
 | -c   | Disables internal timer (for long-term crontab usage) |
 | -p   | Adds to the log file the most CPU consumming process. |
 | -r   | Shows content of the log file (if exists)             |
+

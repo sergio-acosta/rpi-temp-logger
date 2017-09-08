@@ -12,6 +12,10 @@ runOnce=false
 
 function usage(){
 	echo "Usage: $0 [options]"
+	echo "	options:"
+	echo "		-c Disables internal timer (for running the script once, or in cron)."
+	echo "		-p Log also the most CPU-intensive process."
+	echo "		-r Displays in the entire log file."
 }
 
 function getTopCpuProcess(){
@@ -105,9 +109,6 @@ done
 
 main
 
-# TO-DO
-# Add help text (usage function)
-# Resolve minor issues 
 
 
 
